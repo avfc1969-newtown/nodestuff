@@ -26,7 +26,15 @@ function api_call(dataloadedAPI, ticker_find){
     });
 };
 
-
+function api_call2(quandlloadedAPI, ticker_find){
+     request("https://www.quandl.com/api/v3/datasets/WIKI/" + ticker_find + "/data.json?api_key=" + process.env.QAN_TOKEN, {json: true }, (err, res, body) => {
+        if(err) {return console.log(err);}
+        if (res.statusCode === 200){
+            //console.log(body);
+            quandlloadedAPI(body);
+        };
+    });
+};
 
 
 
@@ -44,8 +52,21 @@ app.get('/', function (req, res) {
             res.render('home', {
             ticker : completedAPI
         });
-    }, "goog");
+    }, "fb");
 });
+
+
+// Set handlebar app GET routes
+app.get('/', function (req, res) {
+    api_call2(function(completedAPI2) {
+            res.render('home', {
+            ticker2 : completedAPI2
+        });
+    }, "fb");
+});
+
+
+
 
 // Set handlebar app POST routes
 app.post('/', function (req, res) {
@@ -53,6 +74,20 @@ app.post('/', function (req, res) {
             //posted_ticker = req.body.market_ticker;
             res.render('home', {
             ticker : completedAPI
+            
+            
+
+        });
+    }, req.body.market_ticker);
+});
+
+
+
+app.post('/', function (req, res) {
+    api_call2(function(completedAPI2) {
+            //posted_ticker = req.body.market_ticker;
+            res.render('home', {
+            ticker2 : completedAPI2
             
 
         });

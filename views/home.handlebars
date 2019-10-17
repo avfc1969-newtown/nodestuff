@@ -7,10 +7,18 @@
 <strong>Ytd Change: </strong>{{ ticker.ytdChange }}%<br/>
 <strong>52 Week High: </strong>${{ ticker.week52High }}<br/>
 <strong>52 Week Low: </strong>${{ ticker.week52Low }}<br/>
+<strong>Quandl Newest Available Data: </strong>{{ ticker2.dataset_data.frequency }}<br/>
+
+
+
+
   
 </div>
 
-
+<br/><br/>
+{{#each ticker2}}
+    {{@key}} | {{this}}<br/>
+{{/each}}
 
 
 
